@@ -1,4 +1,4 @@
-let enterData = document.createElement('div');
+let enterData = document.createElement('table');
 enterData.classList.add('new-prod')
 document.body.appendChild(enterData)
 let listProductHTML = document.querySelector('.new-prod')
@@ -6,7 +6,6 @@ let listProductHTML = document.querySelector('.new-prod')
 
 
 // Собираем данные из input
-
 
 btn.addEventListener('click', function takeData() {
     // Получаем текущие данные из localStorage (если они там есть)
@@ -21,11 +20,9 @@ btn.addEventListener('click', function takeData() {
 
     // Добавляем новый объект в массив сохраненных данных
     savedData.push(formData);
-
     // Сохраняем обновленный массив в localStorage
     localStorage.setItem('formData', JSON.stringify(savedData));
 
-    console.log(savedData);
     grabData()
 });
 
@@ -33,58 +30,66 @@ btn.addEventListener('click', function takeData() {
 
 //кнопка удаления
 let deleteBtn = document.createElement('button');
-
 deleteBtn.innerText = 'Удалить товар';
 document.body.append(deleteBtn);
-
 
 
 //удаляем из localStorage последний с конца товар
 deleteBtn.addEventListener('click', function removeData() {
     // Получаем текущие данные из localStorage
     let savedData = JSON.parse(localStorage.getItem('formData')) || [];
-
     // Удаление конкретного объекта (например, первого в массиве)
-    savedData.splice(0, 1); // Удаляем первый элемент массива
-
+    savedData.pop(); // Удаляем последний товар
     // Сохраняем обновленный массив в localStorage
     localStorage.setItem('formData', JSON.stringify(savedData));
-
-    console.log(savedData);
     grabData()
 });
 
 
 
-// Вывод данных из localStorage
+// Вывод данных из localStorage на страницу
 let listProducts = []
 
-
 const showData = () => {
-    listProductHTML.innerHTML = '';
-    if(listProducts.length > 0){
-        listProducts.forEach(product => {
-            let newProduct = document.createElement('tr');
-            newProduct.innerHTML = 
-                `<td class="table__name">${product.name}
-                </td>
-                <td >  
-                </td>` ;
-        listProductHTML.appendChild(newProduct);
-        })
-    }
-}
+
+    if ( listProducts.length === 0 ) {
+        listProductHTML.innerHTML = ``;
+    } else {
+        listProductHTML.innerHTML = `<td id="sort">Название</td>`;
+    };
+
+    
+
+if(listProducts.length > 0){
+    listProducts.forEach(product => {
+        let newProduct = document.createElement('tr');
+        newProduct.innerHTML = 
+            `
+            <td class="table__name">${product.name}
+            </td>
+             `;
+             listProductHTML.appendChild(newProduct);
+    })
+};
+newProduct.innerHTML = 
+`<td>Название  
+</td>
+`;
+};
 
 
 // Сбор данных из localStorage
 const grabData = () => {
     let savedData = JSON.parse(localStorage.getItem('formData') || []);
     listProducts = savedData;
-        console.log(listProducts);
         showData();
     }
 
-
+// Внешний вид таблицы
+const tableRow = document.querySelectorAll('.table__name');
+tableRow.forEach(element => {
+    element.style.border = '1px solid black';
+});
 
 
 

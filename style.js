@@ -24,7 +24,6 @@ itemCard.innerHTML = `
 document.body.append(itemCard);
 
 
-
 // Кнопка
 let btnAdd = document.createElement('button')
 btnAdd.classList.add('btn')
@@ -34,9 +33,6 @@ document.body.append(btnAdd)
 
 const btn = document.querySelector('.btn');
 btn.addEventListener('click', takeData);
-
-
-
 
 
 
@@ -60,3 +56,5 @@ Array.from(form).forEach(element => {
     // element.style.listStyleType = 'none';
 })
 Array.from(itemContent).forEach(element => {element.style.padding = '10px 10px'})
+
+
