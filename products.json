@@ -1,0 +1,25 @@
+[
+    {
+       "id": "1",
+        "manufacturer": "",
+        "name": "vasya",
+        "price": 0,
+        "value": 0
+    },
+    {
+        "id": "2",
+         "manufacturer": "",
+         "name": "petya",
+         "price": 0,
+         "value": 0
+     },
+     {
+        "id": "3",
+         "manufacturer": "",
+         "name": "misha",
+         "price": 0,
+         "value": 0
+     }
+]
+
+
