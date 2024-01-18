@@ -28,12 +28,19 @@ btn.addEventListener('click', function takeData() {
 
 
 
+// deleteBtn.innerText = 'Удалить товар';
+//  document.body.append(deleteBtn);
+
+
 //кнопка удаления
-let deleteBtn = document.createElement('button');
-deleteBtn.innerText = 'Удалить товар';
-document.body.append(deleteBtn);
+const createDeleteButton = () => {
+    let deleteBtn = document.createElement('button');
+    deleteBtn.innerText = 'Удалить товар';
+    deleteBtn.classList.add('delete');
+    return deleteBtn;
+}
 
-
+const deleteClick = (deleteBtn) => {
 //удаляем из localStorage последний с конца товар
 deleteBtn.addEventListener('click', function removeData() {
     // Получаем текущие данные из localStorage
@@ -44,7 +51,7 @@ deleteBtn.addEventListener('click', function removeData() {
     localStorage.setItem('formData', JSON.stringify(savedData));
     grabData()
 });
-
+};
 
 
 // Вывод данных из localStorage на страницу
@@ -58,23 +65,37 @@ const showData = () => {
         listProductHTML.innerHTML = `<td id="sort">Название</td>`;
     };
 
-    
-
 if(listProducts.length > 0){
     listProducts.forEach(product => {
         let newProduct = document.createElement('tr');
+        newProduct.classList.add('tr')
         newProduct.innerHTML = 
             `
             <td class="table__name">${product.name}
             </td>
+            <td class="table__name">
+               
+            </td>
              `;
+             let deleteBtn = createDeleteButton();
+             newProduct.querySelector('.table__name:last-child').appendChild(deleteBtn);
              listProductHTML.appendChild(newProduct);
-    })
+             deleteClick(deleteBtn);
+       
+    });
+   
+// Внешний вид таблицы
+let newTr = document.querySelectorAll('.table__name');
+Array.from(newTr).forEach(element => {
+    element.style.border = '1px solid black';
+});
+    
 };
 newProduct.innerHTML = 
 `<td>Название  
 </td>
 `;
+
 };
 
 
@@ -85,11 +106,8 @@ const grabData = () => {
         showData();
     }
 
-// Внешний вид таблицы
-const tableRow = document.querySelectorAll('.table__name');
-tableRow.forEach(element => {
-    element.style.border = '1px solid black';
-});
+
+
 
 
 

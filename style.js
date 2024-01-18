@@ -8,7 +8,6 @@ itemCard.innerHTML = `
         <label class="item__manufacturer-title">Производитель</label>
         <input class="item__manufacturer" type="text" name="manufacturer"></input>
   
-
         <label class="item__name-title">Наименование</label>
         <input class="item__name" type="text" name="name"></input>
    
