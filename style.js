@@ -31,7 +31,7 @@ btnAdd.setAttribute('id', 'btn')
 document.body.append(btnAdd)
 
 const btn = document.querySelector('.btn');
-btn.addEventListener('click', takeData);
+// btn.addEventListener('click', takeData);
 
 
 

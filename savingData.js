@@ -40,12 +40,11 @@ const createDeleteButton = () => {
     return deleteBtn;
 }
 
-const deleteClick = (deleteBtn, product, index) => {
+const deleteClick = (deleteBtn, product) => {
 //удаляем из localStorage последний с конца товар
 deleteBtn.addEventListener('click', function removeData() {
     
-    listProducts.splice(index, 1);
-    showData();
+    
     
     // Получаем текущие данные из localStorage
     let savedData = JSON.parse(localStorage.getItem('formData')) || [];
@@ -61,7 +60,8 @@ deleteBtn.addEventListener('click', function removeData() {
         localStorage.setItem('formData', JSON.stringify(savedData)); 
         grabData()    
     }
-    
+    listProducts.splice(index, 1);
+    showData();
 });
 };
 
