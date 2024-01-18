@@ -40,16 +40,28 @@ const createDeleteButton = () => {
     return deleteBtn;
 }
 
-const deleteClick = (deleteBtn) => {
+const deleteClick = (deleteBtn, product) => {
 //удаляем из localStorage последний с конца товар
 deleteBtn.addEventListener('click', function removeData() {
+    
+    
+    
     // Получаем текущие данные из localStorage
     let savedData = JSON.parse(localStorage.getItem('formData')) || [];
-    // Удаление конкретного объекта (например, первого в массиве)
-    savedData.pop(); // Удаляем последний товар
-    // Сохраняем обновленный массив в localStorage
-    localStorage.setItem('formData', JSON.stringify(savedData));
-    grabData()
+
+    // Находим индекс удаляемого объекта
+    let index = savedData.findIndex(item =>item.name === product.name);
+
+    if (index !== -1) {
+         // Удаление конкретного объекта (например, первого в массиве)
+        // savedData.pop(); // Удаляем последний товар
+        savedData.splice(index, 1);
+        // Сохраняем обновленный массив в localStorage
+        localStorage.setItem('formData', JSON.stringify(savedData)); 
+        grabData()    
+    }
+    listProducts.splice(index, 1);
+    showData();
 });
 };
 
@@ -66,7 +78,7 @@ const showData = () => {
     };
 
 if(listProducts.length > 0){
-    listProducts.forEach(product => {
+    listProducts.forEach((product, index) => {
         let newProduct = document.createElement('tr');
         newProduct.classList.add('tr')
         newProduct.innerHTML = 
@@ -77,11 +89,11 @@ if(listProducts.length > 0){
                
             </td>
              `;
-             let deleteBtn = createDeleteButton();
-             newProduct.querySelector('.table__name:last-child').appendChild(deleteBtn);
-             listProductHTML.appendChild(newProduct);
-             deleteClick(deleteBtn);
-       
+        let deleteBtn = createDeleteButton();
+        newProduct.querySelector('.table__name:last-child').appendChild(deleteBtn);
+        
+        deleteClick(deleteBtn, product, index);
+        listProductHTML.appendChild(newProduct); 
     });
    
 // Внешний вид таблицы
