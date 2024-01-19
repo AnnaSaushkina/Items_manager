@@ -1,9 +1,8 @@
 const itemCard = document.createElement('form');
-let idNum
 
 itemCard.classList.add('item')
 itemCard.innerHTML = `
-<form class="item__content" id="${idNum}">
+<form class="item__content">
     
         <label class="item__manufacturer-title">Производитель</label>
         <input class="item__manufacturer" type="text" name="manufacturer"></input>

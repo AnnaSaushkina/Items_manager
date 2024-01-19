@@ -113,14 +113,11 @@ const showData = () => {
         });
     
     };
-    let priceSum = 2*4;
-    let valueSum = 2;
+    // let priceSum = 2*4;
+    // let valueSum = 2;
     //Эта строчка держит код
         newProduct.innerHTML =  `<td>Название</td>
-        <td class="table">${priceSum}
-        </td>
-        <td class="table">${valueSum}
-        </td>
+     
         `;
 };
 
