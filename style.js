@@ -15,13 +15,12 @@ itemCard.innerHTML = `
         <input class="item__price" type="text" name="price"></input>
    
         <label class="item__value-title">Количество</label> 
-        <input class="item__value" type="text" name="value"></input>
+        <input class="item__value" type="text" name="val"></input>
  
 </form>
 `;
 
 document.body.append(itemCard);
-
 
 // Кнопка
 let btnAdd = document.createElement('button')
@@ -31,9 +30,6 @@ btnAdd.setAttribute('id', 'btn')
 document.body.append(btnAdd)
 
 const btn = document.querySelector('.btn');
-// btn.addEventListener('click', takeData);
-
-
 
 const mainStyles = document.querySelector('html');
 const itemContent = document.getElementsByClassName('item__content');
@@ -52,7 +48,6 @@ Array.from(form).forEach(element => {
     element.style.backgroundColor = 'white';
     element.style.marginTop = '10px';
     element.style.padding = '5px';
-    // element.style.listStyleType = 'none';
 })
 Array.from(itemContent).forEach(element => {element.style.padding = '10px 10px'})
 

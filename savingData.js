@@ -6,7 +6,6 @@ let listProductHTML = document.querySelector('.new-prod')
 
 
 // Собираем данные из input
-
 btn.addEventListener('click', function takeData() {
     // Получаем текущие данные из localStorage (если они там есть)
     let savedData = JSON.parse(localStorage.getItem('formData')) || [];
@@ -15,21 +14,18 @@ btn.addEventListener('click', function takeData() {
     let formData = {};
 
     inputs.forEach(input => {
+        formData[input.manufacturer] = input.value;
         formData[input.name] = input.value;
+        formData[input.price] = input.value;
+        formData[input.val] = input.value;
     });
 
     // Добавляем новый объект в массив сохраненных данных
     savedData.push(formData);
     // Сохраняем обновленный массив в localStorage
     localStorage.setItem('formData', JSON.stringify(savedData));
-
     grabData()
 });
-
-
-
-// deleteBtn.innerText = 'Удалить товар';
-//  document.body.append(deleteBtn);
 
 
 //кнопка удаления
@@ -40,12 +36,10 @@ const createDeleteButton = () => {
     return deleteBtn;
 }
 
-const deleteClick = (deleteBtn, product) => {
 //удаляем из localStorage последний с конца товар
+const deleteClick = (deleteBtn, product) => {
 deleteBtn.addEventListener('click', function removeData() {
-    
-    
-    
+
     // Получаем текущие данные из localStorage
     let savedData = JSON.parse(localStorage.getItem('formData')) || [];
 
@@ -54,7 +48,6 @@ deleteBtn.addEventListener('click', function removeData() {
 
     if (index !== -1) {
          // Удаление конкретного объекта (например, первого в массиве)
-        // savedData.pop(); // Удаляем последний товар
         savedData.splice(index, 1);
         // Сохраняем обновленный массив в localStorage
         localStorage.setItem('formData', JSON.stringify(savedData)); 
@@ -70,48 +63,69 @@ deleteBtn.addEventListener('click', function removeData() {
 let listProducts = []
 
 const showData = () => {
-
+// Вывод заголовков
     if ( listProducts.length === 0 ) {
         listProductHTML.innerHTML = ``;
     } else {
-        listProductHTML.innerHTML = `<td id="sort">Название</td>`;
+        listProductHTML.innerHTML = `
+        <td name="manufacturer">Производитель</td>
+        <td name="name">Название</td>
+        <td name="price">Цена</td>
+        <td name="value">Количество</td>
+        <td name="priceSum">Общая сумма</td>
+        <td name="valueSum">Общее количество</td>
+        `;
     };
 
-if(listProducts.length > 0){
-    listProducts.forEach((product, index) => {
-        let newProduct = document.createElement('tr');
-        newProduct.classList.add('tr')
-        newProduct.innerHTML = 
-            `
-            <td class="table__name">${product.name}
-            </td>
-            <td class="table__name">
-               
-            </td>
-             `;
+   
+    // Вывод содержимого таблицы
+    if(listProducts.length > 0){
+        listProducts.forEach((product, index) => {
+
+            let newProduct = document.createElement('tr');
+            newProduct.classList.add('tr')
+            newProduct.innerHTML = 
+                `
+                <td class="table">${product.manufacturer}
+                </td>
+                <td class="table">${product.name}
+                </td>
+                <td class="table">${product.price + " рублей"} 
+                </td>
+                <td class="table">${product.val + " шт"} 
+                </td>
+                `;
+        //Создаем кнопку удаления     
         let deleteBtn = createDeleteButton();
-        newProduct.querySelector('.table__name:last-child').appendChild(deleteBtn);
+        newProduct.appendChild(deleteBtn);
         
         deleteClick(deleteBtn, product, index);
         listProductHTML.appendChild(newProduct); 
     });
-   
-// Внешний вид таблицы
-let newTr = document.querySelectorAll('.table__name');
-Array.from(newTr).forEach(element => {
-    element.style.border = '1px solid black';
-});
+
     
+
+   
+    // Внешний вид таблицы
+    let newTr = document.querySelectorAll('.table');
+        Array.from(newTr).forEach(element => {
+            element.style.border = '1px solid black';
+        });
+    
+    };
+    let priceSum = 2*4;
+    let valueSum = 2;
+    //Эта строчка держит код
+        newProduct.innerHTML =  `<td>Название</td>
+        <td class="table">${priceSum}
+        </td>
+        <td class="table">${valueSum}
+        </td>
+        `;
 };
-newProduct.innerHTML = 
-`<td>Название  
-</td>
-`;
-
-};
 
 
-// Сбор данных из localStorage
+// Забираем данные из localStorage для вывода
 const grabData = () => {
     let savedData = JSON.parse(localStorage.getItem('formData') || []);
     listProducts = savedData;
